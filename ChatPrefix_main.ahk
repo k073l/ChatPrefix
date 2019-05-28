@@ -15,7 +15,8 @@ Gui Add, Text, x8 y64 w107 h24 +0x200, Wpisz prefix chatu
 Gui Add, Text, x8 y88 w107 h23 +0x200, np. &&3
 Gui Add, Button, x8 y120 w42 h23 gOdpal, % "Odpal"
 Gui Add, Button, x64 y120 w42 h23 gStop, % "Stop"
-Gui Show, w120 h148, ChatPrefix
+Gui Add, Button, x8 y150 w98 h23 gLast, % "Ost. konfig"
+Gui Show, w120 h182, ChatPrefix
 
 Return
 
@@ -59,6 +60,15 @@ GuiControl, Hide, Edit
 Gui Add, Text, x8 y40 w107 h21 +0x80, Aktywny: %Edit%
 FileDelete, code.txt
 FileAppend, %Edit%, code.txt
+Run, ChatPrefix_core.exe
+Return
+}
+
+Last:
+{
+FileRead, Edit, code.txt
+GuiControl, Hide, Edit
+Gui Add, Text, x8 y40 w107 h21 +0x80, Aktywny: %Edit%
 Run, ChatPrefix_core.exe
 Return
 }
