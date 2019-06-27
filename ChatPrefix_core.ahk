@@ -35,7 +35,7 @@ Send t
 }
 If (blokada = 0){
 Send t ;jeśli nieaktywna wpisz kod i zablokuj
-Sleep 100
+Sleep 40
 Send %kod%
 blokada = 1
 }

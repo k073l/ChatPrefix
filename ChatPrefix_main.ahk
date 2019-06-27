@@ -7,6 +7,9 @@ SetWorkingDir %A_ScriptDir%  ; Ensures a consistent starting directory.
 #NoTrayIcon
 DetectHiddenWindows, On
 
+global Edit
+global Aktywny
+
 Gui Font, s18, Impact
 Gui Add, Text, x8 y8 w107 h23 +0x200, ChatPrefix
 Gui Font
@@ -50,14 +53,16 @@ CloseScript(Name)
 Stop:
 {
 CloseScript("ChatPrefix_core.exe")
-ExitApp
+GuiControl, Hide, Aktywny
+GuiControl, Show, Edit
 }
 
 Odpal:
 {
 Gui, Submit, NoHide
+global Edit
 GuiControl, Hide, Edit
-Gui Add, Text, x8 y40 w107 h21 +0x80, Aktywny: %Edit%
+ShowActive()
 FileDelete, code.txt
 FileAppend, %Edit%, code.txt
 Run, ChatPrefix_core.exe
@@ -68,10 +73,16 @@ Last:
 {
 FileRead, Edit, code.txt
 GuiControl, Hide, Edit
-Gui Add, Text, x8 y40 w107 h21 +0x80, Aktywny: %Edit%
+ShowActive()
 Run, ChatPrefix_core.exe
 Return
 }
 
+ShowActive()
+{
+Gui Add, Text, x8 y40 w107 h21 +0x80 vAktywny, Aktywny: %Edit%
+GuiControlGet, Aktywny
+global Aktywny
+}
 
 
