@@ -4,11 +4,12 @@ SendMode Input  ; Recommended for new scripts due to its superior speed and reli
 SetWorkingDir %A_ScriptDir%  ; Ensures a consistent starting directory.
 #Singleinstance force
 #Persistent
-#NoTrayIcon
 DetectHiddenWindows, On
 
 global Edit
 global Aktywny
+
+Menu, Tray, NoStandard
 
 Gui Font, s18, Impact
 Gui Add, Text, x8 y8 w107 h23 +0x200, ChatPrefix
@@ -19,14 +20,22 @@ Gui Add, Text, x8 y88 w107 h23 +0x200, np. &&3
 Gui Add, Button, x8 y120 w42 h23 gOdpal, % "Odpal"
 Gui Add, Button, x64 y120 w42 h23 gStop, % "Stop"
 Gui Add, Button, x8 y150 w98 h23 gLast, % "Ost. konfig"
-Gui Show, w120 h182, ChatPrefix
+Gui Show, w120 h182, ChatPrefix v. 3.1
 
 Return
 
-GuiClose:
+
+
+
+Quit:
 {
 CloseScript("ChatPrefix_core.exe")
 ExitApp
+}
+
+GuiClose:
+{
+Zminimalizuj()
 }
 Success:=CloseScript("Case insensitive script name")
 return
@@ -66,6 +75,7 @@ ShowActive()
 FileDelete, code.txt
 FileAppend, %Edit%, code.txt
 Run, ChatPrefix_core.exe
+Zminimalizuj()
 Return
 }
 
@@ -75,6 +85,7 @@ FileRead, Edit, code.txt
 GuiControl, Hide, Edit
 ShowActive()
 Run, ChatPrefix_core.exe
+Zminimalizuj()
 Return
 }
 
@@ -85,4 +96,10 @@ GuiControlGet, Aktywny
 global Aktywny
 }
 
-
+Zminimalizuj()
+{
+Gui, Submit
+Menu, Tray, NoStandard,
+Menu, Tray, Add, Zamknij, Quit
+MsgBox  Program będzie działał jako zminimalizowany w zasobniku
+}
